@@ -1,21 +1,17 @@
 //Array variable for questions
 var arrQuestions = `
  [
-     [
-        {"Q":"Javascript is the best language?"},
-        {"1":"True"},
-        {"2":"False"},
-        {"A":"True"}
-    ]
+        {"Q":"Javascript is the best language?",
+        "1":"True",
+        "2":"False",
+        "A":"True"}
     ,
-    [
-        {"Q":"Which brackets are used to create an object in javascript?"},
-        {"1":"[ ]"},
-        {"2":"{ }"},
-        {"3":"( )"},
-        {"4":"| |"},
-        {"A":"{ }"}
-    ]
+        {"Q":"Which brackets are used to create an object in javascript?",
+        "1":"[ ]",
+        "2":"{ }",
+        "3":"( )",
+        "4":"| |",
+        "A":"{ }"}
 ]
 `
 //Levels object

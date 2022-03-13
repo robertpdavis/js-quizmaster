@@ -3,6 +3,7 @@
 
 var startButton = document.querySelector("#start-button");
 var timerDisplay = document.querySelector("#timer-display");
+var questionText = document.querySelector("#question-text");
 var answerList = document.querySelector("#answer-list");
 var timeLeft = setTime;
 var correct = 0;
@@ -11,13 +12,28 @@ var questionCount = 0;
 var questionNum = 0;
 
 
+//Listeners
+//Start button
 startButton.addEventListener("click", function(event) {
     event.preventDefault();
     startQuiz();
 });
 
+//Answer selection
+answerList.addEventListener("click", function(event) {
+    event.preventDefault();
+    //Check the answer and call the next question
+    checkAnswer();
+});
+
+
+
 function startQuiz () {
 
+    //Shuffle questions so no in the same order for each quiz
+    arrQuestions = shuffle(arrQuestions);
+    
+    //Display first question
     displayQuestion();
 
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
@@ -35,25 +51,40 @@ function startQuiz () {
             displayResult();
         }
     }, 1000);
+
 }
 
 function displayQuestion() {
-
     // Clear previous question answers
     answerList.innerHTML = "";
-    question = arrQuestions[];
 
-    // Render a new li for each todo
-    for (var i = 0; i < todos.length; i++) {
-    var answers = todos[i];
+    //Get question/answers from question array
+    question = arrQuestions[questionNum];
 
-    var li = document.createElement("li");
-    li.textContent = todo;
-    li.setAttribute("data-index", i);
+    //Dispay question
+    questionText.textContent = question["Q"];
 
- 
-    answerList.appendChild(li);
+    for (var key in question) {
+        if (Object.hasOwnProperty.call(question, key)) {
+            if (key != "Q" && key != "A") {         
+                var answer = key + "." + question[key];
+                var li = document.createElement("li");
+                li.setAttribute("data-index", 1);
+
+                var button = document.createElement("button");
+                button.textContent = answer;
+            
+                li.appendChild(button);
+                answerList.appendChild(li);
+            }
+        }
     }
+    return;
+}
+
+//Check the answer selected - dislay result on screen and record result
+function checkAnswer() {
+
 }
 
 //Display quiz result on sreen
@@ -81,17 +112,15 @@ function shuffle (items) {
     } 
 }
 
+// This function is being called below and will run when the page loads.
 function init() {
     //Display timer start time
     timerDisplay.textContent = setTime;
 
-    //Shuffle questions
-    // console.log(arrQuestions);
-    arrQuestions = shuffle(arrQuestions);
-    // console.log(arrQuestions);
-
+    //Parse questions
+    arrQuestions = JSON.parse(arrQuestions);
     questionCount = arrQuestions.length;
-    console.log(questionCount);
+
 }
 
 init();
