@@ -10,27 +10,33 @@
     <body>
         <header>
             <h1 class= "large-font">Javascript Quizmaster</h1>
-            <section>
+            <section class = "section">
                 <section class= "timer-card timer-text">
                     <!-- <div class = "timer-text"> -->
                     <div class="large-font" id="timer-display">10</div>
-                    <h3>seconds remaining</h3>
+                    <div id="time-remaining">
+                        <h3>Total time for test</h3>
+                    <div>
                 </section>
-                <button id="start-button">Start Quiz</button>
+                <!-- <button class = "header-button" id="start-button">Start Quiz</button> -->
+                <input class = "header-button" type="button" id="start-button" value="Start Quiz">
             </section>
         </header>
 
         <main>
-            <section>
-                <div class="question-card">
-                    <p id="question-text">Question ?</p>
-                    <ul id="answer-list">
-                        <li>answer 1</li>
-                        <li>answer 2</li>
-                        <li>answer 3</li>
-                        <li>answer 4</li>
-                    </ul>
-                </div>
+            <section class="section">
+                <section  class="question-card">
+                    <p id="question-text">
+                        Try to answer the following javascript questions within the set time. Wrong answer will
+                        penalise your score and time remaining. Good luck!
+                    </p>
+                    <section id="question-card">
+                        <ul id="answer-list"></ul>
+                        <span id="result-text"></span>
+                        <input type="text" id="initials" name="initials">
+                        <input class = "header-button" type="button" id="initial-button" value="Submit">
+                    </section>
+                </section>
             </section>
         </main>
         <script src="./assets/js/config.js"></script>

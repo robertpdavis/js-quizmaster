@@ -22,24 +22,6 @@
     background: linear-gradient(0deg, rgba(19,41,61,1) 0%, rgba(237,245,249,1) 63%);
   }
   
-  /* button {
-    background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
-    border-radius: 8px;
-    color: #13293d;
-    cursor: pointer;
-    font-size: 2em;
-    letter-spacing: 0.21px;
-    line-height: 16px;
-    max-width: 255px;
-    padding: 20px 52px;
-    text-align: center;
-    transition-duration: 0.15s;
-    transition-property: background-color;
-    transition-timing-function: linear;
-    margin-top: 0.6em;
-
-  } */
-  
   header {
     display:flex;
     flex-wrap: wrap;
@@ -56,8 +38,16 @@
     flex-wrap: wrap;
     justify-content: space-around;
   }
-  
-  section {
+
+  p {
+      margin-bottom: 0.5rem;
+  }
+
+  hr {
+      color:black;
+  }
+
+  .section {
     /* flex: 1 1 auto; */
     justify-content: center;
     padding: 8px;
@@ -65,23 +55,9 @@
     background-color: white;
     border-radius: 8px;
     max-width: 100%;
-
   }
 
-  p {
-      margin-bottom: 0.5rem;
-  }
-  
-  .timer-card {
-    height: 200px;
-    padding: 10px;
-    background: #13293d;
-    color: #fff;
-    text-align: center;
-    max-width: 100%;
-  }
-
-  header button {
+  .header-button {
 
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
     border-radius: 8px;
@@ -90,13 +66,22 @@
     font-size: 2em;
     letter-spacing: 0.21px;
     line-height: 16px;
-    max-width: 255px;
+    max-width: 100%;
     padding: 20px 52px;
     text-align: center;
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: linear;
     margin-top: 0.6em;
+  }
+
+  .timer-card {
+    height: 200px;
+    padding: 10px;
+    background: #13293d;
+    color: #fff;
+    text-align: center;
+    max-width: 100%;
   }
   
   .timer-text {
@@ -116,9 +101,10 @@
   }
 
   .question-card button {
-      height: 1rem;
+      height: 1.9rem;
       font-size: 1.5rem;
       text-align: left;
+      padding:0.2rem;
   }
   
   .large-font {
