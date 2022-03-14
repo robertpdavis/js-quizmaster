@@ -9,16 +9,14 @@
     </head>
     <body>
         <header>
-            <h1 class= "large-font">Javascript Quizmaster</h1>
-            <section class = "section">
-                <section class= "timer-card timer-text">
-                    <!-- <div class = "timer-text"> -->
+            <h1 class= "large-font" id="header-text">Javascript Quizmaster</h1>
+            <section class = "section" id = "header-section">
+                <section class= "timer-card">
                     <div class="large-font" id="timer-display">10</div>
-                    <div id="time-remaining">
+                    <div id="timer-label">
                         <h3>Total time for test</h3>
                     <div>
                 </section>
-                <!-- <button class = "header-button" id="start-button">Start Quiz</button> -->
                 <input class = "header-button" type="button" id="start-button" value="Start Quiz">
             </section>
         </header>
@@ -33,7 +31,7 @@
                     <section id="question-card">
                         <ul id="answer-list"></ul>
                         <span id="result-text"></span>
-                        <input type="text" id="initials" name="initials">
+                        <input type="text" id="initials-input" name="initials-input">
                         <input class = "header-button" type="button" id="initial-button" value="Submit">
                     </section>
                 </section>

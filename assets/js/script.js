@@ -1,17 +1,19 @@
 //Javascript Quizmaster code
 
 //Set variables
+var headerSection = document.querySelector("#header-section");
+var headerText = document.querySelector("#header-text");
 var startButton = document.querySelector("#start-button");
 var timerDisplay = document.querySelector("#timer-display");
-var timeRemaining = document.querySelector("#time-remaining");
+var timerLabel = document.querySelector("#timer-label");
 var questionText = document.querySelector("#question-text");
 var answerList = document.querySelector("#answer-list");
 var resultText = document.querySelector("#result-text");
 var initialButton = document.querySelector("#initial-button");
-var initials = document.querySelector("#initials");
+var initialsInput = document.querySelector("#initials-input");
 var timer;
 var timeLeft;
-var correct;
+var correctCount;
 var wrong;
 var questionCount = 0;
 var questionNum;
@@ -21,10 +23,13 @@ var questionNum;
 //Start button
 startButton.addEventListener("click", function(event) {
     event.preventDefault();
-    startButton.textContent === "Start Quiz";
+    
+    if (startButton.value === "Redo Quiz") {
+        resetQuestionCard();
+    }
 
     startButton.disabled = true;
-
+    startButton.style.opacity = 0.5;
     startQuiz();
 });
 
@@ -36,10 +41,9 @@ answerList.addEventListener("click", function(event) {
     displayQuestion();
 });
 
-//Initials submit
+//initials input submit
 initialButton.addEventListener("click", function(event) {
     event.preventDefault();
-    //Check the answer and call the next question
     saveHighScore();
 });
 //-----------------------------------------------------------
@@ -49,13 +53,11 @@ initialButton.addEventListener("click", function(event) {
 
 function startQuiz () {
     timeLeft = setTime;
-    correct = 0;
+    correctCount = 0;
     wrong = 0;
     questionNum = 0;
     
-
-
-    timeRemaining.textContent = "seconds remaining"
+    timerLabel.textContent = "seconds remaining";
 
     //Shuffle questions so no in the same order for each quiz
     arrQuestions = shuffle(arrQuestions);
@@ -78,8 +80,8 @@ function startQuiz () {
             displayResult();
 
             startButton.disabled = false;
-            startButton.textContent= "Redo Quiz";
-
+            startButton.style.opacity = 1.0;
+            startButton.value= "Redo Quiz";
         }
     }, 1000);
 
@@ -101,11 +103,9 @@ function displayQuestion() {
                 if (key != "Q" && key != "A") {         
                     var answer = key + "." + question[key];
                     var li = document.createElement("li");
-                    li.setAttribute("data-index", 1);
-
                     var button = document.createElement("button");
+                    button.setAttribute("data-index", key);
                     button.textContent = answer;
-                
                     li.appendChild(button);
                     answerList.appendChild(li);
                 }
@@ -118,19 +118,16 @@ function displayQuestion() {
 function checkAnswer(event) {
     if (timeLeft > 0 && questionNum < questionCount) {
         var answer = arrQuestions[questionNum]["A"];
-        var userAnswer = event.target.textContent.charAt(0);
-
+        var userAnswer = event.target.dataset.index;
         if (userAnswer === answer) {
-            correct++;
+            correctCount++;
             resultText.innerHTML= "<br><hr><br>Correct";
-
         } else  {
             wrong++;
             timeLeft = timeLeft - setTimePenalty;
             resultText.innerHTML = "<br><hr><br>Wrong";
         }
-
-        //Dispay if answer was correct or wrong for period
+        //Dispay if answer was correctCount or wrong for period
         setTimeout(function () {
             resultText.innerHTML = "";       
         },750);
@@ -141,27 +138,73 @@ function checkAnswer(event) {
 
 //Display quiz result on sreen
 function displayResult() {
-    timerDisplay.textContent = "Your Score: " + correct;
-    timeRemaining.textContent = "";
+    timerDisplay.textContent = "Your Score: " + (correctCount/questionCount * 100);
+    timerLabel.textContent = "";
     questionText.textContent = "Please enter your initials and submit for the highsscores list";
     answerList.style.display = "none";
-    initials.style.display = "block";
+    initialsInput.style.display = "block";
     initialButton.style.display= "block";
 }
 
 //Save result to high scores list and go to page
 function saveHighScore() {
+    
+    var initals= initialsInput.value;
+    //Check initialsInput were submitted
+    if (initals === null || initals === "" || initals.length > 3) {
+        if (!confirm("No intials submitted or too long. Please try again or cancel")) {
+            return;
+        }
+    }
+    
     var savedScores = JSON.parse(localStorage.getItem("highScores"));
-
     if (savedScores===null) {
         var highScores = {};
     }
-    console.log(highScores);
-    console.log(initials.value);
-    highScores[initials.value] = correct;
 
+    highScores = savedScores;
+    highScores[initialsInput.value] = (correctCount/questionCount * 100) ;
     // set new entry to local storage 
     localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+function displayScores () {
+    var savedScores = JSON.parse(localStorage.getItem("highScores"));
+
+    //Clear unused elements
+    headerSection.style.display = "none";
+    questionText.style.display = "none";
+
+    //Set header text
+    headerText.textContent = "Javascript Quizmaster High Scores";
+
+    //Build high scores list
+    if (savedScores != "" && savedScores != null && Object.keys(savedScores).length > 0) {
+        for (var key in savedScores) {
+            if (Object.hasOwnProperty.call(savedScores, key)) {       
+                var score = key + " : " + savedScores[key] + "%";
+                var li = document.createElement("li");
+                li.textContent = score;
+                li.style.textAlign = "center";
+                answerList.appendChild(li);
+            }
+        }
+    }
+}
+
+function resetQuestionCard() {
+    headerSection.style.display= "block";
+    headerText.textContent="Javascript Quizmaster";
+    startButton.value = "Start Quiz";
+    startButton.style.opacity = 1.0;
+    timerDisplay.textContent = setTime;
+    questionText.textContent = `Try to answer the following javascript questions within the set time. Wrong answer will
+    penalise your score and time remaining. Good luck!`;
+    answerList.style.display = "block";
+    initialsInput.style.display = "none";
+    initialButton.style.display= "none";
+
+    return;
 }
 
 //Shuffle function using Fisher-Yates Shuffle - https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
@@ -184,9 +227,10 @@ function init() {
     arrQuestions = JSON.parse(arrQuestions);
     //Get number of questions
     questionCount = arrQuestions.length;
+    initialsInput.style.display = "none";
+    initialButton.style.display = "none";
 
-    initials.style.display= "none";
-    initialButton.style.display= "none";
+    // displayScores();
 }
 
 //-----------------------------------------------------------
