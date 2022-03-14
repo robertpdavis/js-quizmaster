@@ -5,26 +5,25 @@
 
 }
 
-
-
 * {
     box-sizing: border-box;
   }
   
+  html {
+    /* Set 1rem to 10px instead of native 16px to make it easier to calculate font-size values for the rest of the page (e.g. 1.6rem is 16px, 2.0rem is 20px, etc.) */
+    font-size: 62.5%;
+  }
+
   body {
     font-family: Arial;
     margin: 0;
-
-    /* display: flex;
-    flex-direction: column;
-    justify-content: flex-start; */
-    min-height: 100vh;
+    min-height: 100%;
     background: linear-gradient(0deg, rgba(19,41,61,1) 0%, rgba(237,245,249,1) 63%);
   }
   
   header {
     display:flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content:space-evenly;
     align-items: center;
     padding: 20px;
@@ -35,8 +34,9 @@
   
   main {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-around;
+    align-items: center;
   }
 
   p {
@@ -48,68 +48,65 @@
   }
 
   .section {
-    /* flex: 1 1 auto; */
+    flex: 0 1 auto;
+    width: 35rem;
     justify-content: center;
+    align-items: center;
     padding: 8px;
     margin-top: 30px;
     background-color: white;
     border-radius: 8px;
-    max-width: 100%;
   }
 
-  .header-button {
-
+  .button {
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
-    border-radius: 8px;
+    border-radius: 0.8rem;
     color: #13293d;
     cursor: pointer;
-    font-size: 2em;
+    font-size: 2rem;
     letter-spacing: 0.21px;
     line-height: 16px;
-    max-width: 100%;
     padding: 20px 52px;
     text-align: center;
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: linear;
-    margin-top: 0.6em;
+    margin-top: 0.6rem;
+    /* margin-left: 6.5rem; */
   }
 
   .timer-card {
-    height: 200px;
-    padding: 10px;
+    height: 15rem;
+    padding: 1rem;
     background: #13293d;
     color: #fff;
     text-align: center;
-    max-width: 100%;
   }
   
-  .question-card {
-    width: 20rem;
-    height: 100%;
-    font-size: 1.5rem;  
+  .list-card {
+    height: 44rem;
+    font-size: 2.2rem;  
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,124,33,0.604079131652661) 100%);
     border: 1px solid #eceff1;
     border-radius: 8px;
     box-shadow: rgba(60, 64, 67, 2) 0 1px 2px 0,
       rgba(60, 64, 67, 0.15) 0 2px 4px 3px;
     margin: auto;
-    padding: 20px;
+    padding: 2rem;
   }
 
-  .question-card button {
-      height: 1.9rem;
-      font-size: 1.5rem;
+  .list-card button {
+      font-size: 2rem;
+      font-weight: bold;
       text-align: left;
       padding:0.2rem;
+      margin-bottom: 0.5rem;
+      min-width: 5rem;
   }
 
-  .scores li {
-    width: 20rem;
-    margin: 1rem;
-    font-size: 1.5rem;
-    text-align: center; 
-    padding: 0.5rem;
+  .input-box {
+    margin: 0 auto;
+    padding: 0.2rem;
   }
   
   .large-font {

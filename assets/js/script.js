@@ -7,9 +7,10 @@ var startButton = document.querySelector("#start-button");
 var timerDisplay = document.querySelector("#timer-display");
 var timerLabel = document.querySelector("#timer-label");
 var questionText = document.querySelector("#question-text");
+var listCard = document.querySelector("#list-card");
 var answerList = document.querySelector("#answer-list");
 var resultText = document.querySelector("#result-text");
-var initialButton = document.querySelector("#initial-button");
+var listButton = document.querySelector("#list-button");
 var initialsInput = document.querySelector("#initials-input");
 var timer;
 var timeLeft;
@@ -25,7 +26,7 @@ startButton.addEventListener("click", function(event) {
     event.preventDefault();
     
     if (startButton.value === "Redo Quiz") {
-        resetQuestionCard();
+        resetQuiz();
     }
 
     startButton.disabled = true;
@@ -33,7 +34,7 @@ startButton.addEventListener("click", function(event) {
     startQuiz();
 });
 
-//Answer selection
+//Answer selection button
 answerList.addEventListener("click", function(event) {
     event.preventDefault();
     //Check the answer and call the next question
@@ -41,10 +42,16 @@ answerList.addEventListener("click", function(event) {
     displayQuestion();
 });
 
-//initials input submit
-initialButton.addEventListener("click", function(event) {
+//List input button
+listButton.addEventListener("click", function(event) {
     event.preventDefault();
-    saveHighScore();
+    if (event.target.value === "Go Back") {
+        resetQuiz();
+    } else {
+        if (saveHighScore() === false) {
+            resetQuiz();
+        }
+    }
 });
 //-----------------------------------------------------------
 
@@ -138,42 +145,63 @@ function checkAnswer(event) {
 
 //Display quiz result on sreen
 function displayResult() {
-    timerDisplay.textContent = "Your Score: " + (correctCount/questionCount * 100);
+    timerDisplay.textContent = "Your Score: " + (correctCount/questionCount * 100) + "%";
     timerLabel.textContent = "";
     questionText.textContent = "Please enter your initials and submit for the highsscores list";
+    //Clear and hide answer list
+    answerList.innerHTML = "";
     answerList.style.display = "none";
+    //Show input box and submit button
     initialsInput.style.display = "block";
-    initialButton.style.display= "block";
+    listButton.style.display= "block";
+    // listButton.style.margin = "0.6rem 0rem 0rem 6.5rem";
+    listButton.value= "Save Score";
 }
 
-//Save result to high scores list and go to page
+//Save result to high scores list
 function saveHighScore() {
-    
     var initals= initialsInput.value;
+    var highScores = JSON.parse(localStorage.getItem("highScores"));
+
     //Check initialsInput were submitted
     if (initals === null || initals === "" || initals.length > 3) {
         if (!confirm("No intials submitted or too long. Please try again or cancel")) {
-            return;
+            return false;
+        } else {
+            return true;
         }
     }
-    
-    var savedScores = JSON.parse(localStorage.getItem("highScores"));
-    if (savedScores===null) {
+
+    //Check if stored scores are set. If not initialise object first.
+    if (highScores === null) {
         var highScores = {};
+        highScores[initialsInput.value] = (correctCount/questionCount * 100) ;
+    } else {
+        highScores[initialsInput.value] = (correctCount/questionCount * 100) ;
     }
 
-    highScores = savedScores;
-    highScores[initialsInput.value] = (correctCount/questionCount * 100) ;
     // set new entry to local storage 
     localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    //Display scores after saving
+    displayScores();
 }
 
+//Display scores
 function displayScores () {
     var savedScores = JSON.parse(localStorage.getItem("highScores"));
 
-    //Clear unused elements
+    //Hide unused elements and set style
     headerSection.style.display = "none";
     questionText.style.display = "none";
+    initialsInput.style.display = "none";
+    listCard.style.height = "60rem";
+
+    //Unhide answer list, button and change text postion near bottom
+    answerList.style.display = "block";
+    listButton.style.display = "block";
+    // listButton.style.margin = "40rem 0rem 0rem 6rem";
+    listButton.value= "Go Back";
 
     //Set header text
     headerText.textContent = "Javascript Quizmaster High Scores";
@@ -192,19 +220,21 @@ function displayScores () {
     }
 }
 
-function resetQuestionCard() {
+//Resets the quiz to inital display
+function resetQuiz() {
     headerSection.style.display= "block";
     headerText.textContent="Javascript Quizmaster";
     startButton.value = "Start Quiz";
     startButton.style.opacity = 1.0;
     timerDisplay.textContent = setTime;
+    questionText.style.display = "block";
     questionText.textContent = `Try to answer the following javascript questions within the set time. Wrong answer will
     penalise your score and time remaining. Good luck!`;
+    listCard.style.height = "44rem";
     answerList.style.display = "block";
+    answerList.innerHTML = "";
     initialsInput.style.display = "none";
-    initialButton.style.display= "none";
-
-    return;
+    listButton.style.display= "none";
 }
 
 //Shuffle function using Fisher-Yates Shuffle - https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
@@ -228,9 +258,8 @@ function init() {
     //Get number of questions
     questionCount = arrQuestions.length;
     initialsInput.style.display = "none";
-    initialButton.style.display = "none";
+    listButton.style.display = "none";
 
-    // displayScores();
 }
 
 //-----------------------------------------------------------
