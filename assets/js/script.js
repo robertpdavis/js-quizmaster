@@ -1,7 +1,7 @@
 //Javascript Quizmaster code
 
 //Set variables
-var headerSection = document.querySelector("#header-section");
+var headerCard = document.querySelector("#header-card");
 var headerText = document.querySelector("#header-text");
 var startButton = document.querySelector("#start-button");
 var timerDisplay = document.querySelector("#timer-display");
@@ -45,8 +45,12 @@ answerList.addEventListener("click", function(event) {
 //List input button
 listButton.addEventListener("click", function(event) {
     event.preventDefault();
+    //Go back to quiz from high scores
     if (event.target.value === "Go Back") {
         resetQuiz();
+    } else if (event.target.value === "High Scores") {
+        displayScores();
+    //Must be save high score
     } else {
         if (saveHighScore() === false) {
             resetQuiz();
@@ -64,7 +68,7 @@ function startQuiz () {
     wrong = 0;
     questionNum = 0;
     
-    timerLabel.textContent = "seconds remaining";
+    timerLabel.textContent = "Seconds Remaining";
 
     //Shuffle questions so no in the same order for each quiz
     arrQuestions = shuffle(arrQuestions);
@@ -153,35 +157,44 @@ function displayResult() {
     answerList.style.display = "none";
     //Show input box and submit button
     initialsInput.style.display = "block";
-    listButton.style.display= "block";
-    // listButton.style.margin = "0.6rem 0rem 0rem 6.5rem";
+    listButton.style.display= "inline-block";
     listButton.value= "Save Score";
 }
 
 //Save result to high scores list
 function saveHighScore() {
-    var initals= initialsInput.value;
+    var initials= initialsInput.value;
     var highScores = JSON.parse(localStorage.getItem("highScores"));
 
     //Check initialsInput were submitted
-    if (initals === null || initals === "" || initals.length > 3) {
+    if (initials === null || initials === "" || initials.length > 3) {
         if (!confirm("No intials submitted or too long. Please try again or cancel")) {
+            //Clear initials from input
+            initialsInput.value = "";
             return false;
         } else {
+            //Clear initials from input
+            initialsInput.value = "";
             return true;
         }
     }
 
+    //Make sure initals are uppercase
+    initials = initials.toUpperCase();
+
     //Check if stored scores are set. If not initialise object first.
     if (highScores === null) {
         var highScores = {};
-        highScores[initialsInput.value] = (correctCount/questionCount * 100) ;
+        highScores[initials] = (correctCount/questionCount * 100) ;
     } else {
-        highScores[initialsInput.value] = (correctCount/questionCount * 100) ;
+        highScores[initials] = (correctCount/questionCount * 100) ;
     }
 
     // set new entry to local storage 
     localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    //Clear initials from input
+    initialsInput.value = "";
 
     //Display scores after saving
     displayScores();
@@ -192,15 +205,13 @@ function displayScores () {
     var savedScores = JSON.parse(localStorage.getItem("highScores"));
 
     //Hide unused elements and set style
-    headerSection.style.display = "none";
+    headerCard.style.display = "none";
     questionText.style.display = "none";
     initialsInput.style.display = "none";
-    listCard.style.height = "60rem";
 
     //Unhide answer list, button and change text postion near bottom
     answerList.style.display = "block";
-    listButton.style.display = "block";
-    // listButton.style.margin = "40rem 0rem 0rem 6rem";
+    listButton.style.display = "inline-block";
     listButton.value= "Go Back";
 
     //Set header text
@@ -222,19 +233,21 @@ function displayScores () {
 
 //Resets the quiz to inital display
 function resetQuiz() {
-    headerSection.style.display= "block";
+    headerCard.style.display= "block";
     headerText.textContent="Javascript Quizmaster";
     startButton.value = "Start Quiz";
     startButton.style.opacity = 1.0;
     timerDisplay.textContent = setTime;
+    timerLabel.textContent = "Total Time For Test"
     questionText.style.display = "block";
     questionText.textContent = `Try to answer the following javascript questions within the set time. Wrong answer will
     penalise your score and time remaining. Good luck!`;
-    listCard.style.height = "44rem";
+    listCard.style.height = "32rem";
     answerList.style.display = "block";
     answerList.innerHTML = "";
     initialsInput.style.display = "none";
-    listButton.style.display= "none";
+    listButton.style.display= "inline-block";
+    listButton.value= "High Scores";
 }
 
 //Shuffle function using Fisher-Yates Shuffle - https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
@@ -258,8 +271,6 @@ function init() {
     //Get number of questions
     questionCount = arrQuestions.length;
     initialsInput.style.display = "none";
-    listButton.style.display = "none";
-
 }
 
 //-----------------------------------------------------------

@@ -9,32 +9,31 @@
     </head>
     <body>
         <header>
-            <h1 class= "large-font" id="header-text">Javascript Quizmaster</h1>
-            <section class = "section" id = "header-section">
+            <h1 id="header-text">Javascript Quizmaster</h1>
+            <section class = "card" id = "header-card">
                 <section class= "timer-card">
-                    <div class="large-font" id="timer-display">10</div>
-                    <div id="timer-label">
-                        <h3>Total time for test</h3>
-                    <div>
+                    <h1 id="timer-display">10</h1>
+                    <h3 id="timer-label">Total Time For Test</h3>
                 </section>
-                <input class = "button" type="button" id="start-button" value="Start Quiz">
+                <div class="input-button">
+                    <input class="button" type="button" id="start-button" value="Start Quiz">
+                <div>
             </section>
         </header>
-
         <main>
-            <section class="section">
+            <section class="card">
                 <section class="list-card" id="list-card">
                     <p id="question-text">
                         Try to answer the following javascript questions within the set time. Wrong answer will
                         penalise your score and time remaining. Good luck!
                     </p>
-                    <section>
-                        <ul id="answer-list"></ul>
-                        <span id="result-text"></span>
-                        <input class = "input-box" type="text" id="initials-input" name="initials-input">
-                        <input class = "button" type="button" id="list-button" value="Submit">
-                    </section>
+                    <ul id="answer-list"></ul>
+                    <span id="result-text"></span>
+                    <input class = "input-box" type="text" id="initials-input" name="initials-input">
                 </section>
+                <div class="input-button">
+                    <input class = "button" type="button" id="list-button" value="High Scores">
+                </div>
             </section>
         </main>
         <script src="./assets/js/config.js"></script>
