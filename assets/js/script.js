@@ -44,7 +44,7 @@ answerList.addEventListener("click", function(event) {
     displayQuestion();
 });
 
-//List input button
+//List input button 1
 listButton1.addEventListener("click", function(event) {
     event.preventDefault();
     //Go back to quiz from high scores
@@ -60,6 +60,14 @@ listButton1.addEventListener("click", function(event) {
             resetQuiz();
         }
     }
+});
+
+//List input button2
+listButton2.addEventListener("click", function(event) {
+    event.preventDefault();
+    //Clear high scores and re-display
+    clearScores();
+    displayScores();
 });
 //-----------------------------------------------------------
 
@@ -263,6 +271,12 @@ function displayScores () {
         questionText.style.display = "block";
         questionText.textContent = "No scores to display"
     }
+}
+
+//Clear scores
+function clearScores() {
+    answerList.innerHTML = "";
+    localStorage.removeItem("highScores");
 }
 
 //Resets the quiz to inital display
