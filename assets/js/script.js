@@ -204,6 +204,7 @@ function saveHighScore() {
 //Display scores
 function displayScores () {
     var savedScores = JSON.parse(localStorage.getItem("highScores"));
+    var sortedScores = [];
 
     //Hide unused elements and set style
     headerCard.style.display = "none";
@@ -221,6 +222,13 @@ function displayScores () {
 
     //Build high scores list
     if (savedScores != "" && savedScores != null && Object.keys(savedScores).length > 0) {
+
+        //Convert object to array
+        for (var score in savedScores) {
+            sortedScores.push([score, savedScores[score]]);
+        }
+        console.log (sortedScores);
+
         for (var key in savedScores) {
             if (Object.hasOwnProperty.call(savedScores, key)) {       
                 var score = key + " : " + savedScores[key] + "%";
