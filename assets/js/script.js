@@ -11,7 +11,8 @@ var questionText = document.querySelector("#question-text");
 var listCard = document.querySelector("#list-card");
 var answerList = document.querySelector("#answer-list");
 var resultText = document.querySelector("#result-text");
-var listButton = document.querySelector("#list-button");
+var listButton1 = document.querySelector("#list-button1");
+var listButton2 = document.querySelector("#list-button2");
 var initialsInput = document.querySelector("#initials-input");
 //Set other global vars
 var timer;
@@ -44,7 +45,7 @@ answerList.addEventListener("click", function(event) {
 });
 
 //List input button
-listButton.addEventListener("click", function(event) {
+listButton1.addEventListener("click", function(event) {
     event.preventDefault();
     //Go back to quiz from high scores
     if (event.target.value === "Go Back") {
@@ -72,7 +73,7 @@ function startQuiz () {
     questionNum = 0;
 
     //Apply DOM changes
-    listButton.style.display = "none";
+    listButton1.style.display = "none";
     listCard.classList.add("list-card-questions");
     timerLabel.textContent = "Seconds Remaining";
 
@@ -164,14 +165,14 @@ function displayResult() {
     listCard.className = "list-card";
     timerDisplay.textContent = "Your Score: " + Math.round(correctCount/questionCount * 100) + "%";
     timerLabel.textContent = "";
-    questionText.textContent = "Please enter your initials and click save for the high scores list";
+    questionText.textContent = "Please enter your initials and click save to save your score in the high scores list";
     //Clear and hide answer list
     answerList.innerHTML = "";
     answerList.style.display = "none";
     //Show input box and submit button
     initialsInput.style.display = "block";
-    listButton.style.display= "inline-block";
-    listButton.value= "Save Score";
+    listButton1.style.display= "inline-block";
+    listButton1.value= "Save Score";
 }
 
 //Save result to high scores list in local storage
@@ -226,8 +227,9 @@ function displayScores () {
 
     //Unhide answer list, button and change text postion near bottom
     answerList.style.display = "block";
-    listButton.style.display = "inline-block";
-    listButton.value= "Go Back";
+    listButton1.style.display = "inline-block";
+    listButton2.style.display = "inline-block";
+    listButton1.value= "Go Back";
 
     //Set header text
     headerText.textContent = "Javascript Quizmaster High Scores";
@@ -278,8 +280,9 @@ function resetQuiz() {
     answerList.style.display = "block";
     answerList.innerHTML = "";
     initialsInput.style.display = "none";
-    listButton.style.display= "inline-block";
-    listButton.value= "High Scores";
+    listButton1.style.display= "inline-block";
+    listButton2.style.display = "none";
+    listButton1.value= "High Scores";
 }
 
 //Shuffle function using Fisher-Yates Shuffle - https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
@@ -303,6 +306,7 @@ function init() {
     //Get number of questions
     questionCount = arrQuestions.length;
     initialsInput.style.display = "none";
+    listButton2.style.display = "none";
 }
 
 //-----------------------------------------------------------

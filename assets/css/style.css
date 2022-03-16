@@ -104,6 +104,10 @@
     margin-top: 0.6rem;
   }
 
+  .button-small {
+    padding: 1rem 5rem;
+  }
+
   /* Default timer card stlye */
   .timer-card {
     height: 12rem;
@@ -117,7 +121,7 @@
 
   /* Default list card stlye */ 
   .list-card {
-    height: 24rem;
+    height: 26rem;
     min-width: 100%;
     font-size: 2.1rem;  
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,124,33,0.604079131652661) 100%);
@@ -126,7 +130,7 @@
     box-shadow: rgba(60, 64, 67, 2) 0 1px 2px 0,
       rgba(60, 64, 67, 0.15) 0 2px 4px 3px;
     margin: auto;
-    padding: 1.5rem;
+    padding: 0.5rem;
   }
 
   /* List card height adjustment for question display */
@@ -136,12 +140,12 @@
 
   /* List card height adjustment for scores display */
   .list-card-scorelist {
-    height: 43rem;
+    height: 39.5rem;
   }
 
   /* Default list style */
   .list-card li {
-    font-size: 2rem;
+    font-size: 1.9rem;
     font-weight: bold;
     padding:0.1rem;
     margin-bottom: 0.5rem;
@@ -161,11 +165,6 @@
     width : 14rem;
     color : white;
     background-color: var(--scores-list-background);
-  }
-
-  /* Style to center button */
-  .input-button {
-    text-align: center;
   }
 
   /* Default input box style */

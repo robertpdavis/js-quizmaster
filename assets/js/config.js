@@ -7,10 +7,10 @@ var arrQuestions = `
         "A":"1"}
     ,
         {"Q":"Which brackets are used to enclose an object in javascript?",
-        "1":"[ ]",
-        "2":"{ }",
-        "3":"( )",
-        "4":"| |",
+        "1":"square brackets",
+        "2":"curly brackets",
+        "3":"parentheses",
+        "4":"double quotes",
         "A":"2"}
     ,
         {"Q":"The condition in an if/else statement is enclosed within ____.",
@@ -20,7 +20,7 @@ var arrQuestions = `
         "4":"square brackets",
         "A":"3"}
     ,
-        {"Q":"Arrays in javascript can be used t store ____.",
+        {"Q":"Arrays in javascript can be used to store ____.",
         "1":"strings and numbers",
         "2":"other arrays",
         "3":"objects",
