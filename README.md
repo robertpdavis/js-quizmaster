@@ -22,8 +22,7 @@ screenshot.png <br/>
 /assets/js/config.js<br/>
 /assets/js/script.js <br/>
 
-
 Site is currently hosted on Github pages at: https://robertpdavis.github.io/js-quizmaster/ 
 
-Screenshot
+Screenshot<br/>
 ![Webpage screenshot](https://github.com/robertpdavis/js-quizmaster/blob/main/screenshot.png "Screenshot of webpage")

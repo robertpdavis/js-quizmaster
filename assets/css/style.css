@@ -1,9 +1,15 @@
 :root {
     --header-backcolour: #13293d;
     --main-background:#13293d;
-    --header-fontcolor: #fff;
-    --scores-list-background: #13293d;
+    --header-fontcolour: #ffffff;
+    --card-backcolour: #ffffff;
+    --timer-card-backcolour: #13293d;
+    --timer-card-colour: #ffffff;
+    --scores-list-backcolour: #13293d;
+    --scores-list-colour: #ffffff;
     --hr-colour: black;
+    --button-colour: #13293d;
+    --card-backcolour: #ffffff;
 }
 
 * {
@@ -35,7 +41,7 @@
     text-align: center;
     padding-top: 1rem;
     background: var(--header-backcolour);
-    color: var(--header-fontcolor);
+    color: var(--header-fontcolour);
     border-radius: 0.8rem;
     margin:0.5rem;
   }
@@ -83,7 +89,7 @@
     align-items: center;
     padding: 0.8rem;
     margin: 1rem;
-    background-color: white;
+    background-color: var(--card-backcolour);
     border-radius: 0.8rem;
   }
 
@@ -92,7 +98,7 @@
     display:inline-block;
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
     border-radius: 0.8rem;
-    color: #13293d;
+    color: var(--button-colour);
     cursor: pointer;
     font-size: 2rem;
     letter-spacing: .021rem;
@@ -113,8 +119,8 @@
     height: 12rem;
     min-width: 100%;
     padding: 1rem;
-    background: #13293d;
-    color: #fff;
+    background: var(--timer-card-backcolour);
+    color: var(--timer-card-colour);
     border-radius: 0.8rem;
     text-align: center;
   }
@@ -163,8 +169,8 @@
     margin : 0rem auto 0.5rem;
     text-align : center;
     width : 14rem;
-    color : white;
-    background-color: var(--scores-list-background);
+    color : var(--scores-list-colour);
+    background-color: var(--scores-list-backcolour);
   }
 
   /* Default input box style */
@@ -176,14 +182,21 @@
   
   /* using a mobile-first approach, use `min-width` values going from narrow -> wide for a responsive design */
 @media screen and (min-width: 768px) {
-
-
+  html {
+    font-size: 58%;
+  }
 
 }
 
 /* media query for larger screens */
 @media screen and (min-width: 992px) {
 
+  html {
+    font-size: 55%;
+  }
 
+  header {
+    margin:2rem 0.5rem 0.5rem;
+  }
 
 }
