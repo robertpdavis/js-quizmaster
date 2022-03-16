@@ -40,10 +40,35 @@ var arrQuestions = `
         "3":"printer",
         "4":"console.log",
         "A":"4"}
+    ,
+        {"Q":"Inside which HTML element do we put the JavaScript?",
+        "1":"<js>",
+        "2":"<javascript",
+        "3":"<script>",
+        "4":"<scripting>",
+        "A":"3"}
+    ,
+        {"Q":"Where is the correct place to insert a JavaScript?",
+        "1":"the <body> section",
+        "2":"both the <head> section and <body> section",
+        "3":"the <head> section",
+        "A":"2"}
+    ,
+        {"Q":"The external JavaScript file must contain the <script> tag.",
+        "1":"true",
+        "2":"false",
+        "A":"2"}
+    ,
+        {"Q":"How to write an IF statement for executing some code if 'i' is NOT equal to 5?.",
+        "1":"if i <> 5",
+        "2":"if i=!5 then",
+        "3":"if (i<>5)",
+        "4":"if (i!=5)",
+        "A":"4"}
 ]`;
 
 //Time var for game - in seconds
-var setTime = 30;
+var setTime = 45;
 
 //Time penalty for wrong answer - in seconds
 var setTimePenalty = 5;
