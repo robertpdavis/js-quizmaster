@@ -12,16 +12,7 @@ var arrQuestions = `
         "3":"( )",
         "4":"| |",
         "A":"2"}
-]
-`
-//Levels object
-var objLevels = {
-    Level1 : "Study Up",
-    Level2 : "Newbie",
-    Level3 : "Average",
-    Level4 : "Expert",
-    Level5 : "Guru"
-}
+]`
 
 //Time var for game - in seconds
 var setTime = 30;

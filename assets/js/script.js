@@ -68,6 +68,9 @@ function startQuiz () {
     correctCount = 0;
     wrong = 0;
     questionNum = 0;
+
+    listButton.style.display = "none";
+    listCard.style.height = "30rem";
     
     timerLabel.textContent = "Seconds Remaining";
 
@@ -150,9 +153,10 @@ function checkAnswer(event) {
 
 //Display quiz result on sreen
 function displayResult() {
+    listCard.style.height = "24rem";
     timerDisplay.textContent = "Your Score: " + (correctCount/questionCount * 100) + "%";
     timerLabel.textContent = "";
-    questionText.textContent = "Please enter your initials and submit for the highsscores list";
+    questionText.textContent = "Please enter your initials and click save for the high scores list";
     //Clear and hide answer list
     answerList.innerHTML = "";
     answerList.style.display = "none";
@@ -205,12 +209,16 @@ function saveHighScore() {
 function displayScores () {
     var savedScores = JSON.parse(localStorage.getItem("highScores"));
     var sortedScores = [];
+    var bgcolor;
+
+    bgcolor = getComputedStyle(document.documentElement)
+    .getPropertyValue('--high-scores-background');
 
     //Hide unused elements and set style
     headerCard.style.display = "none";
     questionText.style.display = "none";
     initialsInput.style.display = "none";
-    listCard.style.height = "49rem";
+    listCard.style.height = "43rem";
 
     //Unhide answer list, button and change text postion near bottom
     answerList.style.display = "block";
@@ -227,17 +235,27 @@ function displayScores () {
         for (var score in savedScores) {
             sortedScores.push([score, savedScores[score]]);
         }
-        console.log (sortedScores);
 
-        for (var key in savedScores) {
-            if (Object.hasOwnProperty.call(savedScores, key)) {       
-                var score = key + " : " + savedScores[key] + "%";
+        //Sort the array - descending
+        sortedScores.sort(function(a, b) {
+            return b[1] - a[1];
+        });
+
+        //Display the scores in a ul
+        sortedScores.forEach( function(value, index, array) {
+            //Top 15 scores only
+            if (index < 15) {
+                var score = value[0] + " : " + value[1] + "%";
                 var li = document.createElement("li");
+                li.style.margin = "0rem auto 0.5rem";
                 li.textContent = score;
                 li.style.textAlign = "center";
+                li.style.width = "14rem";
+                li.style.color = "white";
+                li.style.backgroundColor = bgcolor;
                 answerList.appendChild(li);
             }
-        }
+        })
     }
 }
 
@@ -248,11 +266,11 @@ function resetQuiz() {
     startButton.value = "Start Quiz";
     startButton.style.opacity = 1.0;
     timerDisplay.textContent = setTime;
-    timerLabel.textContent = "Total Time For Test"
+    timerLabel.textContent = "Total Time For Quiz"
     questionText.style.display = "block";
     questionText.textContent = `Try to answer the following javascript questions within the set time. Wrong answer will
     penalise your score and time remaining. Good luck!`;
-    listCard.style.height = "30rem";
+    listCard.style.height = "24rem";
     answerList.style.display = "block";
     answerList.innerHTML = "";
     initialsInput.style.display = "none";
