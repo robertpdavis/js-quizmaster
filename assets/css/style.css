@@ -2,7 +2,8 @@
     --header-backcolour: #13293d;
     --main-background:#13293d;
     --header-fontcolor: #fff;
-    --high-scores-background: #13293d;
+    --scores-list-background: #13293d;
+    --hr-colour: black;
 }
 
 * {
@@ -14,6 +15,7 @@
     font-size: 62.5%;
   }
 
+  /* Body set up as flex box / column */
   body {
     display:flex;
     flex-direction: column;
@@ -23,6 +25,7 @@
     min-height: 100%;
   }
   
+ /* Header set up as flex box / column */
   header {
     display:flex;
     flex-direction: column;
@@ -33,16 +36,15 @@
     padding-top: 1rem;
     background: var(--header-backcolour);
     color: var(--header-fontcolor);
-    border-bottom:3rem #879274;
     border-radius: 0.8rem;
     margin:0.5rem;
   }
   
+  /* Main set up as flex box / column */
   main {
     display: flex;
     flex-direction: column;
     width:35rem;
-    justify-content: space-around;
     align-items: center;
     background-color: var(--main-background);
     border-radius: 0.8rem;
@@ -54,9 +56,10 @@
   }
 
   hr {
-      color:black;
+      color:var(--hr-colour);
   }
 
+  /* Heading styles */
   h1 {
     font-size: 3.5em;
     padding:0.25rem;
@@ -72,16 +75,19 @@
     padding:0.15rem;
   }
 
+  /* Card container style. Also flex box for items within.*/
   .card {
+    display: flex;
+    flex-direction: column;
     width: 33rem;
-    /* justify-content: center;
-    align-items: center; */
+    align-items: center;
     padding: 0.8rem;
     margin: 1rem;
     background-color: white;
     border-radius: 0.8rem;
   }
 
+  /* Default button style */
   .button {
     display:inline-block;
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
@@ -98,17 +104,21 @@
     margin-top: 0.6rem;
   }
 
+  /* Default timer card stlye */
   .timer-card {
     height: 12rem;
+    min-width: 100%;
     padding: 1rem;
     background: #13293d;
     color: #fff;
     border-radius: 0.8rem;
     text-align: center;
   }
-  
+
+  /* Default list card stlye */ 
   .list-card {
     height: 24rem;
+    min-width: 100%;
     font-size: 2.1rem;  
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,124,33,0.604079131652661) 100%);
     border: 1px solid #eceff1;
@@ -119,6 +129,17 @@
     padding: 1.5rem;
   }
 
+  /* List card height adjustment for question display */
+  .list-card-questions {
+    height: 30rem;
+  }
+
+  /* List card height adjustment for scores display */
+  .list-card-scorelist {
+    height: 43rem;
+  }
+
+  /* Default list style */
   .list-card li {
     font-size: 2rem;
     font-weight: bold;
@@ -126,16 +147,28 @@
     margin-bottom: 0.5rem;
   }
 
-  .list-card button {
+  /* List button style for questions */
+  .list-card-button {
     text-align: left;
     min-width: 10rem;
     border-radius: 0.5rem;
   }
 
+ /* Styling for displaying scores */
+  .list-card-scores {
+    margin : 0rem auto 0.5rem;
+    text-align : center;
+    width : 14rem;
+    color : white;
+    background-color: var(--scores-list-background);
+  }
+
+  /* Style to center button */
   .input-button {
     text-align: center;
   }
 
+  /* Default input box style */
   .input-box {
     margin: 1rem auto;
     padding: 0.2rem;

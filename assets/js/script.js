@@ -49,10 +49,12 @@ listButton.addEventListener("click", function(event) {
     //Go back to quiz from high scores
     if (event.target.value === "Go Back") {
         resetQuiz();
+    //Go to high scores from main screen
     } else if (event.target.value === "High Scores") {
         displayScores();
     //Must be save high score
     } else {
+        //User does not want to saves score. Go back to start
         if (saveHighScore() === false) {
             resetQuiz();
         }
@@ -64,23 +66,23 @@ listButton.addEventListener("click", function(event) {
 //Functions--------------------------------------------------
 
 function startQuiz () {
+    //Set vars
     timeLeft = setTime;
     correctCount = 0;
-    wrong = 0;
     questionNum = 0;
 
+    //Apply DOM changes
     listButton.style.display = "none";
-    listCard.style.height = "30rem";
-    
+    listCard.classList.add("list-card-questions");
     timerLabel.textContent = "Seconds Remaining";
 
-    //Shuffle questions so no in the same order for each quiz
+    //Shuffle questions so not in the same order for each quiz
     arrQuestions = shuffle(arrQuestions);
     
     //Display first question
     displayQuestion();
 
-    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds or 1 second
     var timer = setInterval(function () {
         // As long as the `timeLeft` is 1 second or more
         if (timeLeft > 0 && questionNum < questionCount) {
@@ -94,6 +96,7 @@ function startQuiz () {
             // Call the `displayResult()` function
             displayResult();
 
+            //Apply DOM changes
             startButton.disabled = false;
             startButton.style.opacity = 1.0;
             startButton.value= "Redo Quiz";
@@ -111,14 +114,16 @@ function displayQuestion() {
         question = arrQuestions[questionNum];
 
         //Dispay question
-        questionText.textContent = question["Q"];
+        questionText.textContent = "Q" + Math.round(questionNum + 1) + ":" + question["Q"];
 
+        //Establish an unordered list of answers
         for (var key in question) {
             if (Object.hasOwnProperty.call(question, key)) {
                 if (key != "Q" && key != "A") {         
                     var answer = key + "." + question[key];
                     var li = document.createElement("li");
                     var button = document.createElement("button");
+                    button.classList.add("list-card-button");
                     button.setAttribute("data-index", key);
                     button.textContent = answer;
                     li.appendChild(button);
@@ -135,26 +140,29 @@ function checkAnswer(event) {
         var answer = arrQuestions[questionNum]["A"];
         var userAnswer = event.target.dataset.index;
         if (userAnswer === answer) {
+            //If answer correct, increment correct counter
             correctCount++;
             resultText.innerHTML= "<br><hr><br>Correct";
         } else  {
-            wrong++;
+            //Take time off for wrong answer
             timeLeft = timeLeft - setTimePenalty;
             resultText.innerHTML = "<br><hr><br>Wrong";
         }
-        //Dispay if answer was correctCount or wrong for period
+        //Dispay if answer was correct or wrong for a period
         setTimeout(function () {
             resultText.innerHTML = "";       
         },750);
 
+        //Increment the quesiton counter to get the next question
         questionNum++;
     }
 }
 
 //Display quiz result on sreen
 function displayResult() {
-    listCard.style.height = "24rem";
-    timerDisplay.textContent = "Your Score: " + (correctCount/questionCount * 100) + "%";
+    //Apply DOM changes
+    listCard.className = "list-card";
+    timerDisplay.textContent = "Your Score: " + Math.round(correctCount/questionCount * 100) + "%";
     timerLabel.textContent = "";
     questionText.textContent = "Please enter your initials and click save for the high scores list";
     //Clear and hide answer list
@@ -166,7 +174,7 @@ function displayResult() {
     listButton.value= "Save Score";
 }
 
-//Save result to high scores list
+//Save result to high scores list in local storage
 function saveHighScore() {
     var initials= initialsInput.value;
     var highScores = JSON.parse(localStorage.getItem("highScores"));
@@ -190,9 +198,9 @@ function saveHighScore() {
     //Check if stored scores are set. If not initialise object first.
     if (highScores === null) {
         var highScores = {};
-        highScores[initials] = (correctCount/questionCount * 100) ;
+        highScores[initials] = Math.round(correctCount/questionCount * 100) ;
     } else {
-        highScores[initials] = (correctCount/questionCount * 100) ;
+        highScores[initials] = Math.round(correctCount/questionCount * 100) ;
     }
 
     // set new entry to local storage 
@@ -209,16 +217,12 @@ function saveHighScore() {
 function displayScores () {
     var savedScores = JSON.parse(localStorage.getItem("highScores"));
     var sortedScores = [];
-    var bgcolor;
-
-    bgcolor = getComputedStyle(document.documentElement)
-    .getPropertyValue('--high-scores-background');
 
     //Hide unused elements and set style
     headerCard.style.display = "none";
     questionText.style.display = "none";
     initialsInput.style.display = "none";
-    listCard.style.height = "43rem";
+    listCard.classList.add("list-card-scorelist");
 
     //Unhide answer list, button and change text postion near bottom
     answerList.style.display = "block";
@@ -241,21 +245,21 @@ function displayScores () {
             return b[1] - a[1];
         });
 
-        //Display the scores in a ul
+        //Display the scores in a ul list
         sortedScores.forEach( function(value, index, array) {
             //Top 15 scores only
             if (index < 15) {
                 var score = value[0] + " : " + value[1] + "%";
                 var li = document.createElement("li");
-                li.style.margin = "0rem auto 0.5rem";
+                //Apply the stores style
+                li.classList.add("list-card-scores");
                 li.textContent = score;
-                li.style.textAlign = "center";
-                li.style.width = "14rem";
-                li.style.color = "white";
-                li.style.backgroundColor = bgcolor;
                 answerList.appendChild(li);
             }
         })
+    } else {
+        questionText.style.display = "block";
+        questionText.textContent = "No scores to display"
     }
 }
 
@@ -270,7 +274,7 @@ function resetQuiz() {
     questionText.style.display = "block";
     questionText.textContent = `Try to answer the following javascript questions within the set time. Wrong answer will
     penalise your score and time remaining. Good luck!`;
-    listCard.style.height = "24rem";
+    listCard.className = "list-card";
     answerList.style.display = "block";
     answerList.innerHTML = "";
     initialsInput.style.display = "none";
@@ -304,3 +308,5 @@ function init() {
 //-----------------------------------------------------------
 
 init();
+
+//End
