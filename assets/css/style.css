@@ -1,8 +1,7 @@
 :root {
-    --body-background:#13293d;
     --header-backcolour: #13293d;
+    --main-background:#13293d;
     --header-fontcolor: #fff;
-
 }
 
 * {
@@ -17,15 +16,16 @@
   body {
     display:flex;
     flex-direction: column;
+    align-items: center;
     font-family: Arial;
     margin: 0;
     min-height: 100%;
-    background: linear-gradient(0deg, rgba(19,41,61,1) 0%, rgba(237,245,249,1) 63%);
   }
   
   header {
     display:flex;
     flex-direction: column;
+    width:35rem;
     justify-content:space-evenly;
     align-items: center;
     text-align: center;
@@ -33,13 +33,19 @@
     background: var(--header-backcolour);
     color: var(--header-fontcolor);
     border-bottom:3rem #879274;
+    border-radius: 0.8rem;
+    margin:0.5rem;
   }
   
   main {
     display: flex;
     flex-direction: column;
+    width:35rem;
     justify-content: space-around;
     align-items: center;
+    background-color: var(--main-background);
+    border-radius: 0.8rem;
+    margin:0.5rem;
   }
 
   p {
@@ -66,11 +72,11 @@
   }
 
   .card {
-    width: 35rem;
-    justify-content: center;
-    align-items: center;
+    width: 33rem;
+    /* justify-content: center;
+    align-items: center; */
     padding: 0.8rem;
-    margin-top: 1rem;
+    margin: 1rem;
     background-color: white;
     border-radius: 0.8rem;
   }
@@ -92,15 +98,16 @@
   }
 
   .timer-card {
-    height: 15rem;
+    height: 12rem;
     padding: 1rem;
     background: #13293d;
     color: #fff;
+    border-radius: 0.8rem;
     text-align: center;
   }
   
   .list-card {
-    height: 28rem;
+    height: 30rem;
     font-size: 2.2rem;  
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,124,33,0.604079131652661) 100%);
     border: 1px solid #eceff1;

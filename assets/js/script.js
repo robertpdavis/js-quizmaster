@@ -1,6 +1,7 @@
 //Javascript Quizmaster code
 
 //Set variables
+//Set DOM object vars
 var headerCard = document.querySelector("#header-card");
 var headerText = document.querySelector("#header-text");
 var startButton = document.querySelector("#start-button");
@@ -12,10 +13,10 @@ var answerList = document.querySelector("#answer-list");
 var resultText = document.querySelector("#result-text");
 var listButton = document.querySelector("#list-button");
 var initialsInput = document.querySelector("#initials-input");
+//Set other global vars
 var timer;
 var timeLeft;
 var correctCount;
-var wrong;
 var questionCount = 0;
 var questionNum;
 
@@ -34,7 +35,7 @@ startButton.addEventListener("click", function(event) {
     startQuiz();
 });
 
-//Answer selection button
+//Answer selection buttons
 answerList.addEventListener("click", function(event) {
     event.preventDefault();
     //Check the answer and call the next question
@@ -208,6 +209,7 @@ function displayScores () {
     headerCard.style.display = "none";
     questionText.style.display = "none";
     initialsInput.style.display = "none";
+    listCard.style.height = "49rem";
 
     //Unhide answer list, button and change text postion near bottom
     answerList.style.display = "block";
@@ -242,7 +244,7 @@ function resetQuiz() {
     questionText.style.display = "block";
     questionText.textContent = `Try to answer the following javascript questions within the set time. Wrong answer will
     penalise your score and time remaining. Good luck!`;
-    listCard.style.height = "32rem";
+    listCard.style.height = "30rem";
     answerList.style.display = "block";
     answerList.innerHTML = "";
     initialsInput.style.display = "none";
